@@ -15,8 +15,24 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from bid import views  # Import views from the bid app
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # Include all URLs from the dashboards app
+    path('', include('bid.urls')),
+    path('login/', views.login, name='login'),  # URL for the login page
+    path('create/', views.create_account, name='create_account'),
+    #path('erp/', views.dashboard1, name='dashboard1'),
+    #path('crm/', views.dashboard2, name='dashboard2'),
+    #path('dashboard3/', views.dashboard3, name='dashboard3'),
+    #path('dashboard4/', views.dashboard4, name='dashboard4'),
+    #path('dashboard5/', views.dashboard5, name='dashboard5'),
+    #path('dashboard6/', views.dashboard6, name='dashboard6'),
+    #path('dashboard7/', views.dashboard7, name='dashboard7'),
+    #path('dashboard8/', views.dashboard8, name='dashboard8'),
+    #path('profile/', views.profile, name='profile'),
+
 ]

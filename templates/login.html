@@ -1,0 +1,169 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <title>Login page</title>
+    <style>
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background-color: #f8f9fa;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+        gap: 30px;
+      }
+
+      .logo {
+        width: 200px;
+        max-width: 40%;
+      }
+
+      .container {
+        background-color: white;
+        padding: 40px 50px;
+        border-radius: 25px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 500px;
+        box-sizing: border-box;
+      }
+
+      @media only screen and (min-width: 768px) {
+        .container {
+          padding: 50px 60px;
+        }
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 2rem;
+        margin-top: 0;
+        color: #333;
+        font-size: 1.8rem;
+      }
+
+      .form-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .field {
+        width: 100px;
+        text-align: right;
+        margin-right: 15px;
+        font-size: 0.95rem;
+        color: #333;
+      }
+
+      .text_field {
+        flex: 1;
+        padding: 8px 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 0.95rem;
+        font-family: "Segoe UI", sans-serif;
+      }
+
+      .text_field:focus {
+        outline: none;
+        border-color: #666;
+      }
+
+      .btn-container {
+        text-align: center;
+        margin-top: 30px;
+      }
+
+      .btn {
+        padding: 10px 40px;
+        border-radius: 5px;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);
+        border: none;
+        background-color: white;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: opacity 0.2s;
+      }
+
+      .btn:hover {
+        opacity: 0.7;
+      }
+
+      a {
+        text-decoration: none;
+      }
+    </style>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{% static 'images/iora_favi.png' %}"
+    />
+  </head>
+  <body>
+    <img
+      src="{% static 'images/iora_logo.png' %}"
+      alt="company iora_logo"
+      class="logo"
+    />
+
+    <div class="container">
+      <form method="POST">
+        {% csrf_token %} {{form}}
+        <h1>Login</h1>
+        {% if messages %}
+        <div
+          style="
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            max-width: 400px;
+          "
+        >
+          {% for message in messages %}
+          <div
+            style="padding: 15px; border-radius: 4px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+                          {% if message.tags == 'error' %}
+                            background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb;
+                          {% elif message.tags == 'success' %}
+                            background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb;
+                          {% endif %}"
+          >
+            {{ message }}
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+        <div class="form-group">
+          <label class="field" for="staff_id">Staff ID:</label>
+          <input
+            class="text_field"
+            type="text"
+            id="staff_id"
+            name="staff_id"
+            placeholder="12345678"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="field" for="pw">Password:</label>
+          <input class="text_field" type="password" id="pw" name="pw" />
+        </div>
+
+        <div class="btn-container">
+          <a href="{% url 'home' %}">
+            <button class="btn">Confirm</button>
+          </a>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
